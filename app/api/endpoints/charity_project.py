@@ -41,7 +41,7 @@ async def get_all_meeting_rooms(
     '/',
     response_model=CharityProjectDB,
     response_model_exclude_none=True,
-    dependencies=[Depends(current_superuser)],
+    dependencies=(Depends(current_superuser),)
 )
 async def create_new_project(
     project: CharityProjectCreate,
@@ -62,7 +62,7 @@ async def create_new_project(
 @router.delete(
     '/{project_id}',
     response_model=CharityProjectDB,
-    dependencies=[Depends(current_superuser)],
+    dependencies=(Depends(current_superuser),)
 )
 async def remove_project(
     project_id: int,
@@ -81,7 +81,7 @@ async def remove_project(
 @router.patch(
     '/{project_id}',
     response_model=CharityProjectDB,
-    dependencies=[Depends(current_superuser)],
+    dependencies=(Depends(current_superuser),)
 )
 async def update_project(
     project_id: int,

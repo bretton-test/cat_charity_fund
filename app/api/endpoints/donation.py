@@ -34,7 +34,7 @@ async def create_new_donation(
     '/',
     response_model=List[DonationDbAdmin],
     response_model_exclude_none=True,
-    dependencies=[Depends(current_superuser)],
+    dependencies=(Depends(current_superuser),)
 )
 async def get_all_donations(
     session: AsyncSession = Depends(get_async_session),
