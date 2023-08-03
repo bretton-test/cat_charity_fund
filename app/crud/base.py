@@ -31,7 +31,7 @@ class CRUDBase:
         attr = getattr(self.model, attr_name)
         order_attr = getattr(self.model, 'create_date')
         db_obj = await session.execute(
-            select(self.model).where(attr == attr_value).order_by(order_attr)
+            select(self.model).where(attr == attr_value).with_for_update().order_by(order_attr)
         )
         return db_obj.scalars().all()
 
