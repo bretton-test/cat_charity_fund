@@ -38,22 +38,21 @@ async def check_project_exists(
 def check_project_investment(
     project: CharityProject, amount: Optional[int] = 0, delete=False
 ) -> None:
-    status_code = HTTPStatus.BAD_REQUEST
     if delete and project.invested_amount > 0:
         raise HTTPException(
-            status_code=status_code,
+            status_code=HTTPStatus.BAD_REQUEST,
             detail='В проект были внесены средства, не подлежит удалению!',
         )
 
     if project.fully_invested:
         raise HTTPException(
-            status_code=status_code,
+            status_code=HTTPStatus.BAD_REQUEST,
             detail='Закрытый проект нельзя редактировать!',
         )
 
     if amount is not None and project.invested_amount > amount:
         raise HTTPException(
-            status_code=status_code,
+            status_code=HTTPStatus.BAD_REQUEST,
             detail=(
                 'Нельзя установить требуемую'
                 ' сумму меньше внесённой в проект!'
